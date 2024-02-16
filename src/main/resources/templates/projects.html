@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="../static/css/projects.css">
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+<h2>Task Management System</h2>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Tasks</th>
+        <th>Developers</th>
+        <th>Start Time</th>
+        <th>Deadline</th>
+        <th>Add Developers</th>
+    </tr>
+    </thead>
+    <tbody class="p_tbody">
+        <th:block th:each=" project : ${projects}">
+    <tr>
+        <td th:text="${project.title}"></td>
+        <td th:text="${project.description}"></td>
+        <td>
+            <ul th:if="${project.tasks.size() > 0}"  th:each="task : ${project.tasks}">
+                <li th:text="|${task.taskName} : ${task.description}|"></li>
+            </ul>
+        </td>
+        <td>
+            <ul th:if="${project.developers.size() > 0}"  th:each="dev : ${project.developers}">
+                <li th:text="|${dev.firstname} ${dev.lastname}|"></li>
+            </ul>
+        </td>
+        <td th:text="${project.startTime}"></td>
+        <td th:text="${project.deadline}"></td>
+       <td><a th:href="@{/add_developer/{id}(id=${project.id})}"><button>Add Developer</button></a></td>
+
+    </tr>
+        </th:block>
+    </tbody>
+</table>
+    <br>
+    <a href="/add_project"><button >Add Project </button></a>
+</body>
+</html>

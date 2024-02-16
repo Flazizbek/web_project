@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Developer</title>
+    <link rel="stylesheet" href="../static/css/projects.css">
+</head>
+<body>
+<div th:replace="fragments :: navbar"></div>
+    <br>
+    <br>
+<h2 th:text="|Add developers to project: ${title}|"></h2>
+<table>
+    <thead>
+    <tr>
+        <th>Free Developers</th>
+        <th>Add Developer</th>
+    </tr>
+    </thead>
+    <tbody class="p_tbody">
+    <th:block th:each=" user : ${users}">
+        <tr>
+            <td th:text="|${user.firstname} ${user.lastname}|"></td>
+            <td>
+                <a th:href="@{/project/${projectId}/add/developer(id=${user.userId})}">
+                    <button>Add</button></a>
+            </td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+</body>
+</html>
